@@ -69,6 +69,44 @@
             color: green;
         }
     }
+
+    /* Style for modal */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    /* Close button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 </style>
 </head>
 <body>
@@ -96,15 +134,69 @@
     --------------------------------------------------------------------------------------------------------<br>
 </div>
 <p>Version 1.0</p>
-<script>
-    window.onload = function() {
-        // Display a welcome message
-        alert('Welcome to WJY\'s Blog!');
 
-        // Play the audio
-        var audio = document.getElementById('bgm');
-        audio.play();
+<!-- Modal content -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>你是和blogger什么关系？</p>
+    <button class="answer-btn" data-answer="朋友">朋友</button>
+    <button class="answer-btn" data-answer="陌生人">陌生人</button>
+  </div>
+</div>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the close button
+    var closeBtn = modal.querySelector(".close");
+
+    // When the page loads, show the modal
+    window.onload = function() {
+        modal.style.display = "block";
     };
+
+    // Function to close the modal
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    // Event listener for close button
+    closeBtn.onclick = function() {
+        closeModal();
+    };
+
+    // Event listener for answer buttons
+    var answerButtons = document.querySelectorAll(".answer-btn");
+    answerButtons.forEach(function(btn) {
+        btn.onclick = function() {
+            var answer = btn.getAttribute("data-answer");
+            // Display answer (you can modify this part as needed)
+            alert("你选择了：" + answer);
+            // Close the modal after displaying answer
+            closeModal();
+            // TODO: Send answer to server or handle further actions
+        };
+    });
+
+    // Password validation and data display
+    var password = "775521";
+    document.addEventListener("keydown", function(event) {
+        var inputPassword = "";
+        if (event.key !== "Enter") {
+            inputPassword += event.key;
+        } else {
+            if (inputPassword === password) {
+                // TODO: Implement code to display and analyze data
+                alert("密码正确，可以查看数据！");
+            } else {
+                alert("密码错误！");
+            }
+            inputPassword = "";
+        }
+    });
 </script>
+
 </body>
 </html>
