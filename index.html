@@ -141,9 +141,8 @@
         modalContent.className = 'modal-content';
         modalContent.innerHTML = `
             <h3>你是和blogger什么关系？</h3>
-            <button onclick="recordAnswer('朋友')">朋友</button>
-            <button onclick="recordAnswer('陌生人')">陌生人</button>
-        `;
+            <button class="answer-btn" data-answer="朋友">朋友</button>
+            <button class="answer-btn" data-answer="陌生人">陌生人</button>
         modal.appendChild(modalContent);
         document.body.appendChild(modal);
 
@@ -161,7 +160,17 @@
         // Show modal after delay (1 second)
         setTimeout(showModal, 1000);
     };
+
+    // Password to reveal results
+    var password = '775521';
+    var inputPassword = prompt('请输入密码查看数据：');
+    if (inputPassword === password) {
+        var showData = true;
+    } else {
+        alert('密码错误，无法查看数据！');
+    }
 </script>
 </body>
 </html>
+
 
