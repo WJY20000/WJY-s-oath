@@ -41,12 +41,17 @@
     }
     .floating-text {
         position: absolute;
-        top: 50%;
+        top: 0;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%);
         font-size: 24px;
         color: red;
         animation: float 5s infinite linear, colorChange 10s infinite alternate;
+        z-index: 1000;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        width: 100%;
+        text-align: center;
     }
 
     @keyframes float {
@@ -70,34 +75,33 @@
         }
     }
 
-    /* Styles for the modal */
-    .modal {
+    .popup-container {
         display: none;
         position: fixed;
-        z-index: 1000;
-        left: 0;
         top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.4);
-    }
-    .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-        max-width: 600px;
-        text-align: center;
-    }
-    .modal-content button {
-        margin: 10px;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
     }
 
+    .popup-content {
+        background-color: #fff;
+        width: 300px;
+        padding: 20px;
+        border-radius: 10px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .popup-content button {
+        margin: 10px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
 </style>
 </head>
 <body>
@@ -125,6 +129,13 @@
     --------------------------------------------------------------------------------------------------------<br>
 </div>
 <p>Version 1.0</p>
+<div class="popup-container" id="popupContainer">
+    <div class="popup-content">
+        <p>你和作者WJY的关系是？</p>
+        <button onclick="recordAnswer('朋友')">朋友</button>
+        <button onclick="recordAnswer('陌生人')">陌生人</button>
+    </div>
+</div>
 <script>
     window.onload = function() {
         // Display a welcome message
@@ -134,43 +145,19 @@
         var audio = document.getElementById('bgm');
         audio.play();
 
-        // Modal functionality
-        var modal = document.createElement('div');
-        modal.className = 'modal';
-        var modalContent = document.createElement('div');
-        modalContent.className = 'modal-content';
-        modalContent.innerHTML = `
-            <h3>你是和blogger什么关系？</h3>
-            <button class="answer-btn" data-answer="朋友">朋友</button>
-            <button class="answer-btn" data-answer="陌生人">陌生人</button>
-        modal.appendChild(modalContent);
-        document.body.appendChild(modal);
-
-        // Function to show modal
-        function showModal() {
-            modal.style.display = 'block';
-        }
-
-        // Function to record answer and close modal
-        function recordAnswer(answer) {
-            alert('你选择了：' + answer);
-            modal.style.display = 'none'; // Close modal after selecting
-        }
-
-        // Show modal after delay (1 second)
-        setTimeout(showModal, 1000);
+        // Show popup after 3 seconds
+        setTimeout(function() {
+            document.getElementById('popupContainer').style.display = 'block';
+        }, 3000);
     };
 
-    // Password to reveal results
-    var password = '775521';
-    var inputPassword = prompt('请输入密码查看数据：');
-    if (inputPassword === password) {
-        var showData = true;
-    } else {
-        alert('密码错误，无法查看数据！');
+    function recordAnswer(answer) {
+        // Close the popup
+        document.getElementById('popupContainer').style.display = 'none';
+
+        // Log the answer (you can send this data to server or store locally)
+        console.log('User chose:', answer);
     }
 </script>
 </body>
 </html>
-
-
