@@ -12,7 +12,6 @@
         background-color: #f5f5f5;
         padding: 20px;
         line-height: 1.6;
-        /* Remove overflow: hidden; to enable scrolling */
     }
     .container {
         width: 80%;
@@ -24,7 +23,7 @@
     }
     img {
         width: 100%;
-        max-width: 100%; /* 确保图片响应式 */
+        max-width: 100%;
         height: auto;
     }
     p {
@@ -42,9 +41,9 @@
     }
     .floating-text {
         position: absolute;
-        top: -20px;
+        top: 50%;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translate(-50%, -50%);
         font-size: 24px;
         color: red;
         animation: float 5s infinite linear, colorChange 10s infinite alternate;
@@ -74,12 +73,12 @@
 </head>
 <body>
 <div class="container">
-    <h2>WJY 's Blog</h2>
-    <audio controls autoplay>
+    <h2>WJY's Blog</h2>
+    <audio id="bgm" controls>
         <source src="https://m701.music.126.net/20240627211035/38bb2e11906e58100b0fcc961106ab0c/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481675466/745c/9b27/3b09/e7326d11bae9540ad13ce9af9b59939c.mp3" type="audio/mpeg">
         您的浏览器不支持音频元素。
     </audio>
-    <div class="floating-text">Your Love Never Die！</div>
+    <div class="floating-text">My Love For You Never Die！</div>
 </div>
 <img src="https://github.com/WJY20000/WJY-s-oath/blob/main/1.jpg?raw=true" alt="ShangHai">
 <p>
@@ -98,8 +97,14 @@
 </div>
 <p>Version 1.0</p>
 <script>
-    // 如有需要，您可以在此处添加JavaScript代码
-</script>
+    window.onload = function() {
+        // Display a welcome message
+        alert('Welcome to WJY\'s Blog!');
 
+        // Play the audio
+        var audio = document.getElementById('bgm');
+        audio.play();
+    };
+</script>
 </body>
 </html>
