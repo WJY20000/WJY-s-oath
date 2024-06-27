@@ -12,19 +12,19 @@
         background-color: #f5f5f5;
         padding: 20px;
         line-height: 1.6;
-        overflow: hidden; /* 防止动态文字溢出视口 */
+        overflow: hidden;
     }
     .container {
         width: 80%;
         margin: 0 auto;
-        position: relative; /* 相对定位，以便绝对定位的元素参照 */
+        position: relative;
     }
     h2 {
         margin-bottom: 20px;
     }
     img {
         width: 100%;
-        max-width: 1200px;
+        max-width: 100%; /* 确保图片响应式 */
         height: auto;
     }
     p {
@@ -36,43 +36,52 @@
     .separator {
         margin-top: 20px;
         border-top: 1px solid #ccc;
-        text-align: center;
         padding: 10px;
         font-style: italic;
         color: #777;
     }
     .floating-text {
         position: absolute;
-        top: -20px; /* 初始位置在页面顶部外侧 */
-        left: calc(50% - 25px); /* 居中显示 */
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
         font-size: 24px;
-        color: red; /* 文字颜色 */
-        animation: float 5s infinite linear; /* 浮动动画效果 */
+        color: red;
+        animation: float 5s infinite linear, colorChange 10s infinite alternate;
     }
 
     @keyframes float {
-        0% {
+        0%, 100% {
             transform: translateY(0);
         }
         50% {
-            transform: translateY(-30px);
+            transform: translateY(-50px);
+        }
+    }
+
+    @keyframes colorChange {
+        0% {
+            color: red;
+        }
+        50% {
+            color: blue;
         }
         100% {
-            transform: translateY(0);
+            color: green;
         }
     }
 </style>
 </head>
 <body>
 <div class="container">
-    <h2>WJY's Blog</h2>
+    <h2>WJY 's Blog</h2>
     <audio controls autoplay>
         <source src="https://m701.music.126.net/20240627211035/38bb2e11906e58100b0fcc961106ab0c/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481675466/745c/9b27/3b09/e7326d11bae9540ad13ce9af9b59939c.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
+        您的浏览器不支持音频元素。
     </audio>
-    <div class="floating-text">sss</div> <!-- 浮动文字 -->
+    <div class="floating-text">sss</div>
 </div>
-<img src="https://github.com/WJY20000/WJY-s-oath/blob/main/1.jpg?raw=true" alt="ShangHai">
+<img src="https://github.com/WJY20000/WJY-s-oath/blob/main/1.jpg?raw=true" alt="上海">
 <p>
     我WJY于此立誓。<br>
     为了追上她那璀璨的光芒，为了追上她这遥不可及的梦想，更为了我深爱的上海<br>
@@ -85,11 +94,11 @@
     2024.6.23<br>
 </p>
 <div class="separator">
-    --------------------------------------------------------------------------------------------------------</br>
+    --------------------------------------------------------------------------------------------------------<br>
 </div>
-<p>Version 1.0</p>
+<p>版本 1.0</p>
 <script>
-    // JavaScript 代码
+    // 如有需要，您可以在此处添加JavaScript代码
 </script>
 
 </body>
