@@ -136,6 +136,13 @@
         <button onclick="recordAnswer('陌生人')">陌生人</button>
     </div>
 </div>
+<div class="popup-container" id="passwordContainer">
+    <div class="popup-content">
+        <p>请输入密码查看结果：</p>
+        <input type="password" id="passwordInput">
+        <button onclick="checkPassword()">确认</button>
+    </div>
+</div>
 <script>
     window.onload = function() {
         // Display a welcome message
@@ -157,6 +164,41 @@
 
         // Log the answer (you can send this data to server or store locally)
         console.log('User chose:', answer);
+    }
+        function checkPassword() {
+        var passwordInput = document.getElementById('passwordInput').value;
+        if (passwordInput === '775521') {
+            showResults();
+        } else {
+            alert('密码不正确，请重新输入。');
+        }
+    }
+
+    function showResults() {
+        var resultsContainer = document.getElementById('results');
+        var resultDataContainer = document.getElementById('resultData');
+        resultDataContainer.innerHTML = '';
+
+        // Display results
+        if (choices.length === 0) {
+            resultDataContainer.innerHTML = '<p>还没有用户选择数据。</p>';
+        } else {
+            var counts = {};
+            choices.forEach(function(choice) {
+                counts[choice] = (counts[choice] || 0) + 1;
+            });
+
+            var resultsHtml = '<ul>';
+            for (var choice in counts) {
+                resultsHtml += '<li>' + choice + ': ' + counts[choice] + '</li>';
+            }
+            resultsHtml += '</ul>';
+
+            resultDataContainer.innerHTML = resultsHtml;
+        }
+
+        // Show results container
+        resultsContainer.classList.remove('hidden');
     }
 </script>
 </body>
