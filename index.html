@@ -136,6 +136,7 @@
         <button onclick="recordAnswer('陌生人')">陌生人</button>
     </div>
 </div>
+    
 <div class="popup-container" id="passwordContainer">
     <div class="popup-content">
         <p>请输入密码查看结果：</p>
@@ -143,6 +144,7 @@
         <button onclick="checkPassword()">确认</button>
     </div>
 </div>
+    
 <script>
     window.onload = function() {
         // Display a welcome message
@@ -165,6 +167,7 @@
         // Log the answer (you can send this data to server or store locally)
         console.log('User chose:', answer);
     }
+    
         function checkPassword() {
         var passwordInput = document.getElementById('passwordInput').value;
         if (passwordInput === '775521') {
