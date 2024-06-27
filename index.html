@@ -41,12 +41,17 @@
     }
     .floating-text {
         position: absolute;
-        top: 50%;
+        top: 0;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%);
         font-size: 24px;
         color: red;
         animation: float 5s infinite linear, colorChange 10s infinite alternate;
+        background-color: white;
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        width: 100%;
+        z-index: 1000;
     }
 
     @keyframes float {
@@ -70,50 +75,24 @@
         }
     }
 
-    /* Style for modal */
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        left: 0;
+    .popup {
+        display: none;
+        position: fixed;
         top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
     }
 
-    .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-        max-width: 400px;
-        text-align: center;
-    }
-
-    /* Close button */
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    /* Style for data display */
-    .data-container {
-        margin-top: 50px;
-        padding: 20px;
+    .popup-content {
         background-color: #fff;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        width: 300px;
+        margin: 100px auto;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
 </style>
 </head>
@@ -142,87 +121,41 @@
     --------------------------------------------------------------------------------------------------------<br>
 </div>
 <p>Version 1.0</p>
-
-<!-- Modal content -->
-<div id="myModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>你是和blogger什么关系？</p>
-    <button class="answer-btn" data-answer="朋友">朋友</button>
-    <button class="answer-btn" data-answer="陌生人">陌生人</button>
-  </div>
-</div>
-
-<!-- Password input and data display container -->
-<div class="data-container" id="dataContainer" style="display:none;">
-    <h3>用户选择的数据：</h3>
-    <ul id="selectedData">
-        <!-- 数据显示将在 JavaScript 中动态添加 -->
-    </ul>
-</div>
-
 <script>
-    // Get the modal
-    var modal = document.getElementById("myModal");
-
-    // Get the close button
-    var closeBtn = modal.querySelector(".close");
-
-    // When the page loads, show the modal
     window.onload = function() {
-        modal.style.display = "block";
-    };
+        // Display a welcome message and capture user's choice
+        var choice = prompt('Welcome to WJY\'s Blog!\nAre you a friend or a stranger?\n\n1. Friend\n2. Stranger');
 
-    // Function to close the modal
-    function closeModal() {
-        modal.style.display = "none";
-    }
+        // Close the window after user selects an option
+        window.close();
 
-    // Event listener for close button
-    closeBtn.onclick = function() {
-        closeModal();
-    };
-
-    // Event listener for answer buttons
-    var answerButtons = document.querySelectorAll(".answer-btn");
-    answerButtons.forEach(function(btn) {
-        btn.onclick = function() {
-            var answer = btn.getAttribute("data-answer");
-            // Display answer (you can modify this part as needed)
-            alert("你选择了：" + answer);
-            // Add selected data to display container
-            var dataContainer = document.getElementById("dataContainer");
-            dataContainer.style.display = "block"; // 显示数据容器
-
-            var selectedData = document.getElementById("selectedData");
-            var listItem = document.createElement("li");
-            listItem.textContent = "你选择了：" + answer;
-            selectedData.appendChild(listItem);
-
-            // Close the modal after displaying answer
-            closeModal();
-            // TODO: Send answer to server or handle further actions
-        };
-    });
-
-    // Password validation and data display
-    var password = "775521";
-    var inputPassword = "";
-
-    document.addEventListener("keydown", function(event) {
-        if (event.key !== "Enter") {
-            inputPassword += event.key;
-        } else {
-            if (inputPassword === password) {
-                // 密码正确，显示数据容器
-                document.getElementById("dataContainer").style.display = "block";
-            } else {
-                alert("密码错误！");
-            }
-            inputPassword = "";
+        // Count and store the results
+        if (choice === '1' || choice.toLowerCase() === 'friend') {
+            localStorage.setItem('friendCount', parseInt(localStorage.getItem('friendCount') || 0) + 1);
+        } else if (choice === '2' || choice.toLowerCase() === 'stranger') {
+            localStorage.setItem('strangerCount', parseInt(localStorage.getItem('strangerCount') || 0) + 1);
         }
-    });
+    };
 </script>
-
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <h3>Enter Password to View Data</h3>
+        <input type="password" id="password">
+        <button onclick="checkPassword()">Submit</button>
+    </div>
+</div>
+<script>
+    function checkPassword() {
+        var password = document.getElementById('password').value;
+        if (password === '775521') {
+            var friendCount = localStorage.getItem('friendCount') || 0;
+            var strangerCount = localStorage.getItem('strangerCount') || 0;
+            var popupContent = 'Friend Count: ' + friendCount + '<br>Stranger Count: ' + strangerCount;
+            document.getElementById('popup').innerHTML = popupContent;
+        } else {
+            alert('Incorrect password. Access denied.');
+        }
+    }
+</script>
 </body>
 </html>
