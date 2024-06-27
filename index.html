@@ -12,10 +12,12 @@
         background-color: #f5f5f5;
         padding: 20px;
         line-height: 1.6;
+        overflow: hidden; /* 防止动态文字溢出视口 */
     }
     .container {
         width: 80%;
         margin: 0 auto;
+        position: relative; /* 相对定位，以便绝对定位的元素参照 */
     }
     h2 {
         margin-bottom: 20px;
@@ -39,6 +41,26 @@
         font-style: italic;
         color: #777;
     }
+    .floating-text {
+        position: absolute;
+        top: -20px; /* 初始位置在页面顶部外侧 */
+        left: calc(50% - 25px); /* 居中显示 */
+        font-size: 24px;
+        color: red; /* 文字颜色 */
+        animation: float 5s infinite linear; /* 浮动动画效果 */
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-30px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
 </style>
 </head>
 <body>
@@ -48,6 +70,7 @@
         <source src="https://m701.music.126.net/20240627211035/38bb2e11906e58100b0fcc961106ab0c/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/28481675466/745c/9b27/3b09/e7326d11bae9540ad13ce9af9b59939c.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+    <div class="floating-text">sss</div> <!-- 浮动文字 -->
 </div>
 <img src="https://github.com/WJY20000/WJY-s-oath/blob/main/1.jpg?raw=true" alt="ShangHai">
 <p>
@@ -64,5 +87,10 @@
 <div class="separator">
     --------------------------------------------------------------------------------------------------------</br>
 </div>
+<p>Version 1.0</p>
+<script>
+    // JavaScript 代码
+</script>
+
 </body>
 </html>
