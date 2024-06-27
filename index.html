@@ -107,6 +107,14 @@
         text-decoration: none;
         cursor: pointer;
     }
+
+    /* Style for data display */
+    .data-container {
+        margin-top: 50px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
 </style>
 </head>
 <body>
@@ -145,6 +153,14 @@
   </div>
 </div>
 
+<!-- Password input and data display container -->
+<div class="data-container" id="dataContainer" style="display:none;">
+    <h3>用户选择的数据：</h3>
+    <ul id="selectedData">
+        <!-- 数据显示将在 JavaScript 中动态添加 -->
+    </ul>
+</div>
+
 <script>
     // Get the modal
     var modal = document.getElementById("myModal");
@@ -174,6 +190,15 @@
             var answer = btn.getAttribute("data-answer");
             // Display answer (you can modify this part as needed)
             alert("你选择了：" + answer);
+            // Add selected data to display container
+            var dataContainer = document.getElementById("dataContainer");
+            dataContainer.style.display = "block"; // 显示数据容器
+
+            var selectedData = document.getElementById("selectedData");
+            var listItem = document.createElement("li");
+            listItem.textContent = "你选择了：" + answer;
+            selectedData.appendChild(listItem);
+
             // Close the modal after displaying answer
             closeModal();
             // TODO: Send answer to server or handle further actions
@@ -182,14 +207,15 @@
 
     // Password validation and data display
     var password = "775521";
+    var inputPassword = "";
+
     document.addEventListener("keydown", function(event) {
-        var inputPassword = "";
         if (event.key !== "Enter") {
             inputPassword += event.key;
         } else {
             if (inputPassword === password) {
-                // TODO: Implement code to display and analyze data
-                alert("密码正确，可以查看数据！");
+                // 密码正确，显示数据容器
+                document.getElementById("dataContainer").style.display = "block";
             } else {
                 alert("密码错误！");
             }
